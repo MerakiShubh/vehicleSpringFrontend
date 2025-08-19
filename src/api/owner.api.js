@@ -12,4 +12,28 @@ const getOwnerVehicles = async () => {
   }
 };
 
-export { getOwnerVehicles };
+const updateOwnerVehicle = async (data) => {
+  try {
+    console.log("Update vehicle -----------_", data);
+    const response = await api.put(
+      `/vehicle/updateVehicle/${data.vehicleNumber}`,
+      data
+    );
+    console.log("update response --------------------->", response);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+const deleteVehicle = async (vehicleNumber) => {
+  try {
+    await api.delete(`/vehicle/delete/${vehicleNumber}`);
+  } catch (error) {
+    console.error(error);
+    toast.error("Failed to delete vehicle");
+  }
+};
+
+export { getOwnerVehicles, updateOwnerVehicle, deleteVehicle };
