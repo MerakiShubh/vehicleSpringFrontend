@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ShinyButton } from "./ShinyButton";
 import OwnerRegistrationFrom from "../components/Modal";
 import CreateRenterForm from "../components/Modal";
@@ -62,8 +62,18 @@ const Landing = () => {
     createRenterMutation.mutate(formData);
   };
 
-  if (mutation.isSuccess) {
-  }
+  useEffect(() => {
+    if (mutation.isSuccess) {
+      navigate("/ownerLogin");
+    }
+  }, [mutation.isSuccess, navigate]);
+
+  useEffect(() => {
+    if (createRenterMutation.isSuccess) {
+      navigate("/renterLogin");
+    }
+  }, [createRenterMutation.isSuccess, navigate]);
+
   return (
     <>
       <div className="overflow-hidden">
@@ -250,7 +260,7 @@ const Landing = () => {
             className="mt-[1px] w-3/4 mx-auto md:w-full md:mt-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 md:py-3 cursor-pointer rounded-lg shadow-md transition duration-300 text-center"
           >
             {mutation.isPending ? (
-              <Loader className="mx-auto" />
+              <Loader className="mx-auto animate-spin" />
             ) : (
               <span>Create account</span>
             )}
@@ -324,7 +334,11 @@ const Landing = () => {
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg shadow-md"
           >
-            Create Account
+            {createRenterMutation.isPending ? (
+              <Loader className="mx-auto animate-spin" />
+            ) : (
+              <span>Create account</span>
+            )}
           </button>
           <div className="text-xs md:text-base font-semibold text-gray-800 mx-auto">
             Already have an account{" "}

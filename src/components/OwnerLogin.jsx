@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useOwnerLoginMutation } from "../hooks/auth.hook";
 import { Loader, Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -22,6 +22,12 @@ const OwnerLogin = () => {
     e.preventDefault();
     mutation.mutate(formData);
   };
+
+  useEffect(() => {
+    if (mutation.isSuccess) {
+      navigate("/ownerDashboard");
+    }
+  }, [mutation.isSuccess, navigate]);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">

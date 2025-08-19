@@ -7,6 +7,7 @@ import App from "./App.jsx";
 import { OwnerDashboard } from "./components/OwnerDashboard.jsx";
 import OwnerLogin from "./components/OwnerLogin.jsx";
 import RenterLogin from "./components/RenterLogin.jsx";
+import RenterDashboard from "./components/RenterDashboard.jsx";
 
 const queryClient = new QueryClient();
 
@@ -18,6 +19,8 @@ createRoot(document.getElementById("root")).render(
         <Route path="/ownerDashboard" element={<OwnerDashboard />} />
         <Route path="/ownerLogin" element={<OwnerLogin />} />
         <Route path="/renterLogin" element={<RenterLogin />} />
+        <Route path="/ownerDashboard" element={<OwnerDashboard />} />
+        <Route path="/renterDashboard" element={<RenterDashboard />} />
       </Routes>
     </QueryClientProvider>
   </BrowserRouter>

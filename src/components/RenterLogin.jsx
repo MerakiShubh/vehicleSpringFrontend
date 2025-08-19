@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   useLoginRenterMutation,
   useOwnerLoginMutation,
@@ -25,6 +25,12 @@ const RenterLogin = () => {
     e.preventDefault();
     mutation.mutate(formData);
   };
+
+  useEffect(() => {
+    if (mutation.isSuccess) {
+      navigate("/renterDashboard");
+    }
+  }, [mutation.isSuccess]);
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
