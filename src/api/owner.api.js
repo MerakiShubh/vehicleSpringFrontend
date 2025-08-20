@@ -36,4 +36,21 @@ const deleteVehicle = async (vehicleNumber) => {
   }
 };
 
-export { getOwnerVehicles, updateOwnerVehicle, deleteVehicle };
+const addOwnerVehicle = async (formData) => {
+  try {
+    for (let [key, value] of formData.entries()) {
+      console.log(key, value);
+    }
+    const response = await api.post("/vehicle/addMoreVehicle", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export { getOwnerVehicles, updateOwnerVehicle, deleteVehicle, addOwnerVehicle };

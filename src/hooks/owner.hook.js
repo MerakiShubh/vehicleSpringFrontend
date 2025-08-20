@@ -3,6 +3,7 @@ import {
   deleteVehicle,
   getOwnerVehicles,
   updateOwnerVehicle,
+  addOwnerVehicle,
 } from "../api/owner.api";
 export const useOwnerGetVehiclesQuery = () => {
   return useQuery({
@@ -32,6 +33,19 @@ export const useDeleteOwnerVehicleMutaion = () => {
     },
     onError: (error) => {
       console.error("renter creation failed:", error);
+      throw error;
+    },
+  });
+};
+
+export const useAddOwnerVehicleMutation = () => {
+  return useMutation({
+    mutationFn: addOwnerVehicle,
+    onSuccess: (data) => {
+      console.log("adding owner vehicle:", data);
+    },
+    onError: (error) => {
+      console.error("adding vehilce owner failed:", error);
       throw error;
     },
   });

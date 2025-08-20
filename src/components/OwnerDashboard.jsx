@@ -4,12 +4,13 @@ import {
   useOwnerGetVehiclesQuery,
 } from "../hooks/owner.hook";
 import UpdateModal from "./UpdateModal";
+import AddVehicleModal from "./AddVehicleModal";
 export const OwnerDashboard = () => {
   const { data, isLoading, refetch } = useOwnerGetVehiclesQuery();
+
   const [openUpdateModal, setOpenUpdateModal] = useState(false);
   const [selectedVehicle, setSelectedVehicle] = useState(null);
-
-  if (isLoading) return <p className="p-4">Loading vehicles...</p>;
+  const [isAddVehicleOpen, setIsAddVehicleOpen] = useState(false);
 
   const deleteVehicleMutation = useDeleteOwnerVehicleMutaion();
   const [deleteModal, setDeleteModal] = useState(false);
@@ -32,14 +33,22 @@ export const OwnerDashboard = () => {
     });
   };
 
+  if (isLoading) return <p className="p-4">Loading vehicles...</p>;
+
   return (
     <>
       <div className="grid grid-cols-[7.5rem_1fr] grid-rows-[80px_1fr] h-screen">
         {/* Navbar */}
-        <nav className="col-span-2 row-start-1 bg-blue-400 flex justify-center md:justify-around items-center border-b-2 border-gray-400/65 z-10">
+        <nav className="col-span-2 row-start-1 bg-blue-400 flex justify-evenly md:justify-around items-center border-b-2 border-gray-400/65 z-10">
           <h1 className="text-black font-bold text-xl cursor-pointer hover:text-2xl/relaxed transition-all">
             bookVehicle
           </h1>
+          <button
+            className=" px-5 py-2.5 bg-black rounded-lg text-white cursor-pointer"
+            onClick={() => setIsAddVehicleOpen(true)}
+          >
+            Add Vehicle
+          </button>
         </nav>
 
         <div className="row-start-2 col-start-1 bg-gray-200/50 hidden md:block"></div>
@@ -100,6 +109,11 @@ export const OwnerDashboard = () => {
           ))}
         </div>
       </div>
+      <AddVehicleModal
+        isOpen={isAddVehicleOpen}
+        onClose={() => setIsAddVehicleOpen(false)}
+        refetch={refetch}
+      />
       <UpdateModal
         isOpen={openUpdateModal}
         onClose={() => setOpenUpdateModal(false)}
